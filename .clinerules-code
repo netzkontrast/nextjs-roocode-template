@@ -1,143 +1,143 @@
 # Code Mode Rules
 
-## 期待する回答
+## Expected Response
 
-- 実装コードは省略せず、完全な形で提供
-- TypeScript の型定義も含める
-- セキュリティのベストプラクティスに従った実装
-- レスポンシブデザインを考慮した UI/UX 提案
-- 日本語での詳細な説明
-- テスト容易性を考慮したコンポーネント設計
-- git commit時はlefthookのpre-commitフックを通す
-- コードベースのドキュメントを変更内容に合わせて更新するのを忘れるな
+- Provide complete implementation code without omission.
+- Include TypeScript type definitions.
+- Implement according to security best practices.
+- Propose UI/UX considering responsive design.
+- Detailed explanation in English.
+- Component design considering testability.
+- Pass lefthook pre-commit hooks when committing via git.
+- Don't forget to update the codebase documentation to match changes.
 
-## アプリケーションコーディング規約
+## Application Coding Conventions
 
-- 既存のESLint, Prettier設定に準拠
-- コンポーネント設計は Composition API を使用
-- 関数やコンポーネントには適切なコメントを含める
-- Next.jsのSuspenseBoundaryを使用してローディング状態を管理
-- ロジックはコンポーネントから分離し、ユーティリティ関数に切り出す
-- ロジックの再利用性を高めるため、関数コンポーネントを使用
-- コンポーネントの再利用性を高めるため、スロットを活用
-- テスト可能なコンポーネント設計
-- 副作用の分離
+- Comply with existing ESLint and Prettier settings.
+- Use Composition API for component design.
+- Include appropriate comments for functions and components.
+- Manage loading states using Next.js SuspenseBoundary.
+- Separate logic from components and extract into utility functions.
+- Use functional components to increase logic reusability.
+- Utilize slots (children prop) to increase component reusability.
+- Testable component design.
+- Separation of side effects.
 
-### ネーミングルール
+### Naming Rules
 
-- ディレクトリ: ケバブケース
-- ファイル名: ケバブケース
-- コンポーネント名: パスカルケース
-- 変数名: キャメルケース
-- 定数名: スネークケース
-- React hook名: キャメルケース
-- CSSクラス名: Tailwind CSSのクラス名を使用
+- Directories: kebab-case
+- Files: kebab-case
+- Component Names: PascalCase
+- Variable Names: camelCase
+- Constant Names: snake_case
+- React hook names: camelCase
+- CSS class names: Use Tailwind CSS class names
 
-### Next.js特有の規約
+### Next.js Specific Conventions
 
-- params should be awaitedのエラーが出ないようにparamsをawaitしてください。例： `const { id } = await params;`
-- paramsもPromiseで受け取ってください。例： `{ params: Promise<{ id: string }> }`
+- Await `params` to avoid "params should be awaited" error. Example: `const { id } = await params;`
+- Accept `params` as a Promise. Example: `{ params: Promise<{ id: string }> }`
 
-## コンポーネント実装規約
+## Component Implementation Conventions
 
-### コンポーネント種類別規約
+### Conventions by Component Type
 
-#### ボタン系
+#### Buttons
 
-- shadcn/uiのボタンコンポーネントをベースに実装
-- クリックハンドラは handle[Action]Click の形式で命名
-- disabled状態の視覚的フィードバックを実装（btn-disabled）
-- loading状態の表現を統一（loading属性）
-- ボタンの種類に応じたスタイル（btn-primary, btn-ghost等）を適切に使用
-- クリックイベントの型安全を確保するため、TypeScriptによる型定義を実施
+- Implement based on shadcn/ui button component.
+- Name click handlers in the format `handle[Action]Click`.
+- Implement visual feedback for disabled state (`btn-disabled`).
+- Unify loading state representation (`loading` attribute).
+- Appropriately use styles according to button type (`btn-primary`, `btn-ghost`, etc.).
+- Implement Type definitions with TypeScript to ensure type safety of click events.
 
-#### モーダル系
+#### Modals
 
-- shadcn/uiのmodalコンポーネントをベースに実装
-- isVisible プロパティで表示制御
-- フォーカストラップの実装
-- キーボード操作（Escape）対応
+- Implement based on shadcn/ui modal component.
+- Control visibility with `isVisible` property.
+- Implement focus trap.
+- Support keyboard operation (Escape).
 
-#### リスト系
+#### Lists/Tables
 
-- shadcn/uiのtableコンポーネントをベースに実装
-- ページネーションの実装
-- ソート・フィルタ機能の統一的な実装
-- 空の状態の表示を統一（empty-state）
-- ローディング状態の表示（loading）
-- エラーハンドリングにおける適切なエラー処理のため、custom error handling functionsを実装
+- Implement based on shadcn/ui table component.
+- Implement pagination.
+- Unified implementation of sort/filter functions.
+- Unified display of empty state (`empty-state`).
+- Display of loading state (`loading`).
+- Implement custom error handling functions for appropriate error processing.
 
-### エラーハンドリング
+### Error Handling
 
-- Next.jsのErrorBoundaryを使用してエラーハンドリング
-  - try-catch による適切なエラーハンドリング
-- ユーザーフレンドリーなエラーメッセージの表示
-- エラー状態のログ記録
-  - Pinoを使用してエラーログを記録
+- Error handling using Next.js ErrorBoundary.
+  - Appropriate error handling with try-catch.
+- Display user-friendly error messages.
+- Log error states.
+  - Record error logs using Pino.
 
-## テスト実装規約
+## Test Implementation Conventions
 
-- AAAパターンを用いてテストケースを記述
+- Write test cases using the AAA pattern.
 
-### コンポーネントテスト
+### Component Tests
 
-#### ファイル構成
+#### File Configuration
 
-- コンポーネントと同じディレクトリ構造を維持
-- ファイル名は `[ComponentName].spec.ts`
-- テストケースは機能単位でグループ化
+- Maintain the same directory structure as components.
+- File name is `[ComponentName].spec.ts`.
+- Group test cases by function.
 
-#### テストケース設計
+#### Test Case Design
 
-- コンポーネントのマウント状態の検証
-- Props、イベント、スロットの動作確認
-- 条件分岐による表示/非表示の検証
-- ユーザーインタラクションのテスト
-- エラー状態のハンドリング
-- wrapper.vm の使用など、内部実装の検証を避ける
+- Verification of component mount state.
+- Verification of Props, events, and slots operation.
+- Verification of display/hide by conditional branching.
+- Test user interactions.
+- Error state handling.
+- Avoid verification of internal implementation such as `wrapper.vm`.
 
-#### テストデータ
+#### Test Data
 
-- Factoryパターンを使用したデータ生成
-- 現実的なテストデータの準備
-- 境界値と異常値のテスト
+- Data generation using Factory pattern.
+- Preparation of realistic test data.
+- Boundary value and abnormal value testing.
 
-#### テストデータ生成とモック処理
+#### Test Data Generation and Mocking
 
-- 個々のテストケースにあわせたテストデータ生成の可視性を確保
-- まとめたテストデータ生成やモック処理は避ける
+- Ensure visibility of test data generation tailored to individual test cases.
+- Avoid batched test data generation or mocking (keep it local).
 
-### リポジトリテスト
+### Repository Tests
 
-#### ファイル構成
+#### File Configuration
 
-- リポジトリと同じディレクトリ構造を維持
-- ファイル名は `[RepositoryName].spec.ts`
-- CRUD操作ごとにグループ化
+- Maintain the same directory structure as repositories.
+- File name is `[RepositoryName].spec.ts`.
+- Group by CRUD operation.
 
-#### テストケース設計
+#### Test Case Design
 
-- 基本的なCRUD操作の検証
-- エラーケースの網羅的なテスト
-- データの整合性チェック
-- リレーションを含むクエリの検証
+- Verification of basic CRUD operations.
+- Comprehensive testing of error cases.
+- Data integrity check.
+- Verification of queries including relations.
 
-#### テストデータ管理
+#### Test Data Management
 
-- テストデータの作成と削除
-- クリーンアップ処理の確実な実行
+- Creation and deletion of test data.
+- Reliable execution of cleanup processing.
 
-### テストデータ生成とモック処理の規約
+### Test Data Generation and Mocking Conventions
 
-#### データスコープの明確化
+#### Clarification of Data Scope
 
-- グローバルデータ（Factory生成のベースデータ）は先頭のdescribeブロックの直前に配置
-- テストケース固有のデータは各テストケース内で定義
-- 特定のテストグループでのみ使用するデータはそのdescribeブロック内で定義
+- Global data (base data generated by Factory) should be placed immediately before the top `describe` block.
+- Test case specific data is defined within each test case.
+- Data used only in a specific test group is defined within that `describe` block.
 
-#### モック処理の実装
+#### Implementation of Mock Processing
 
-- モック関数は`vi.hoisted`で定義
+- Define mock functions with `vi.hoisted`.
 
 ```ts
 const { fetchFromRepository, validateUtil } = vi.hoisted(() => ({
@@ -146,65 +146,65 @@ const { fetchFromRepository, validateUtil } = vi.hoisted(() => ({
 }))
 ```
 
-#### Repositoryのモック
+#### Repository Mock
 
-- 必ず `{ data, error }` の形式で返却
-- エラーがない場合は明示的に `error: null` を設定
-- エラーの場合は文字列か `{ message: string }` を使用
+- Always return in the format `{ data, error }`.
+- Explicitly set `error: null` if there is no error.
+- Use a string or `{ message: string }` for errors.
 
 ```ts
-// 成功パターン
+// Success pattern
 repositoryMock.mockResolvedValue({ data: result, error: null })
 
-// エラーパターン
+// Error pattern
 repositoryMock.mockResolvedValue({
   data: null,
-  error: { message: 'データの取得に失敗しました' }
+  error: { message: 'Failed to fetch data' }
 })
 ```
 
-#### Utilsのモック
+#### Utils Mock
 
-- 戻り値の形式は関数の実装に応じて自由
-- 型定義に従った値を返却
+- Return value format is free according to function implementation.
+- Return values following type definitions.
 
 ```ts
-// 成功パターン
+// Success pattern
 validateUtil.mockResolvedValue(true)
 formatUtil.mockReturnValue('formatted text')
 calculateUtil.mockReturnValue(100)
 
-// エラーパターン
-validateUtil.mockRejectedValue(new Error('バリデーションエラー'))
+// Error pattern
+validateUtil.mockRejectedValue(new Error('Validation error'))
 ```
 
-## コード変更後の確認
+## Confirmation After Code Changes
 
-1. ビルドの確認npm run build
+1. Check build: `npm run build`
 
-2. 変更したファイルのユニットテスト実行
+2. Run unit tests for changed files
 
-- テストファイルの命名規則: `[FileName].spec.ts`
-- テストファイルの配置: `src/spec/` 以下の対応するディレクトリ
-  - コンポーネント: `src/spec/components/`
-  - ユーティリティ: `src/spec/utils/`
-  - リポジトリ: `src/spec/repositories/`
+- Test file naming convention: `[FileName].spec.ts`
+- Test file placement: Corresponding directory under `src/spec/`
+  - Components: `src/spec/components/`
+  - Utils: `src/spec/utils/`
+  - Repositories: `src/spec/repositories/`
 
-例：
+Example:
 
-### 特定のテストファイルを実行
+### Run specific test file
 
 ```bash
 npm run test:unit src/spec/utils/example.spec.ts
 ```
 
-### 特定のディレクトリ内の全テストを実行
+### Run all tests in specific directory
 
 ```bash
 npm run test:unit src/spec/utils/
 ```
 
-注意：
+Note:
 
-- テストファイルは変更したソースコードに対応するものを実行
-- テストが続けて失敗した場合は、ユーザーに問題を報告して指示を求める
+- Run tests corresponding to the changed source code.
+- If tests fail continuously, report the problem to the user and ask for instructions.

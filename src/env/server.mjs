@@ -3,11 +3,11 @@ import { z } from 'zod'
 import { pino } from 'pino'
 
 export const env = createEnv({
-  // サーバサイドの環境変数
+  // Server-side environment variables
   server: {
-    /** アプリバージョン */
+    /** App version */
     APP_VERSION: z.string(),
-    /** loggerのログレベル */
+    /** Logger log level */
     PINO_LOG_LEVEL: z.enum(Object.values(pino().levels.labels))
   },
   experimental__runtimeEnv: {
