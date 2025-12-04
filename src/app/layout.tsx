@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 }
 
 /**
- *
+ * Root Layout
  */
 export default function RootLayout({
   children

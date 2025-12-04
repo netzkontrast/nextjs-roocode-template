@@ -1,46 +1,46 @@
 # PM Mode Rules
 
-## 開発フロー
+## Development Flow
 
-開発は以下フェーズで実施します。
+Development is carried out in the following phases.
 
 ```mermaid
 flowchart LR
-    %% AIモード
-    subgraph Modes [AIモード]
+    %% AI Modes
+    subgraph Modes [AI Modes]
         direction LR
-        PMMode[PMモード<br>プロジェクト管理]
-        PMOMode[PMOモード<br>ルール遵守確認]
-        ArchMode[Architectモード<br>システム設計]
-        CodeMode[Codeモード<br>実装とテスト]
+        PMMode[PM Mode<br>Project Management]
+        PMOMode[PMO Mode<br>Rule Compliance Check]
+        ArchMode[Architect Mode<br>System Design]
+        CodeMode[Code Mode<br>Implementation & Test]
     end
 
-    %% メインフロー
-    Start([開始]) --> RC[1.ルール<br>確認]
-    RC --> RD[2.要件<br>定義]
-    RD --> DS[3.設計]
-    DS --> IM[4.実装]
-    IM --> TS[5.テスト]
+    %% Main Flow
+    Start([Start]) --> RC[1.Rule<br>Check]
+    RC --> RD[2.Requirements<br>Definition]
+    RD --> DS[3.Design]
+    DS --> IM[4.Implementation]
+    IM --> TS[5.Testing]
 
-    %% フェーズ終了時の共通処理（メインフローの下に配置）
-    subgraph PhaseEnd [フェーズ終了時の処理]
+    %% Common processing at the end of phase (Placed below main flow)
+    subgraph PhaseEnd [Processing at End of Phase]
         direction LR
-        Commit[成果物を<br>git commit]
-        --> Review[ユーザに<br>レビュー依頼]
+        Commit[git commit<br>deliverables]
+        --> Review[Request Review<br>from User]
     end
 
-    %% 各フェーズと終了処理の接続（右下へ向かって）
+    %% Connection between each phase and end processing (Towards bottom right)
     RC --> PhaseEnd
     RD --> PhaseEnd
     DS --> PhaseEnd
     IM --> PhaseEnd
     TS --> PhaseEnd
 
-    PhaseEnd --> NextPhase{次のフェーズ<br>があるか？}
-    NextPhase -->|Yes| NextStart[次のフェーズへ]
-    NextPhase -->|No| End([完了])
+    PhaseEnd --> NextPhase{Is there<br>a next phase?}
+    NextPhase -->|Yes| NextStart[To Next Phase]
+    NextPhase -->|No| End([Complete])
 
-    %% モードと各フェーズの関連（上部から下への矢印）
+    %% Relation between modes and each phase (Arrows from top to bottom)
     PMMode -.-> RD
     PMOMode -.-> RC
     PMOMode -.-> PMOCheck
@@ -48,7 +48,7 @@ flowchart LR
     CodeMode -.-> IM
     CodeMode -.-> TS
 
-    %% スタイル定義
+    %% Style Definition
     classDef phaseNode fill:#f5f5ff,stroke:#333,stroke-width:1px
     class RC,RD,DS,IM,TS phaseNode
 
@@ -62,54 +62,54 @@ flowchart LR
     class Fix,NextPhase decisionNode
 ```
 
-## 要件定義フェーズ
+## Requirements Definition Phase
 
 ```mermaid
 flowchart TD
-    Start([要件定義開始]) --> RD1[ブランチ作成]
-    RD1 --> RD1a[feature/機能名]
-    RD1 --> RD1b[fix/バグ名]
-    RD1 --> RD1c[hotfix/緊急バグ名]
-    RD1a --> RD2[要件・機能一覧作成]
+    Start([Start Req Def]) --> RD1[Create Branch]
+    RD1 --> RD1a[feature/feature-name]
+    RD1 --> RD1b[fix/bug-name]
+    RD1 --> RD1c[hotfix/urgent-bug-name]
+    RD1a --> RD2[Create Requirements/Feature List]
     RD1b --> RD2
     RD1c --> RD2
-    RD2 --> RD3[docs/requirements-definition.mdに記載]
-    RD3 --> RD4[markdownlintの標準ルールに従う]
-    RD4 --> End([要件定義完了])
+    RD2 --> RD3[Document in<br>docs/requirements-definition.md]
+    RD3 --> RD4[Follow markdownlint<br>standard rules]
+    RD4 --> End([Req Def Complete])
 
     classDef reqNode fill:#f9f9f9,stroke:#333,stroke-width:1px
     class RD1,RD1a,RD1b,RD1c,RD2,RD3,RD4 reqNode
 ```
 
-1. ブランチ名: feature/[機能名]、fix/[バグ名]、hotfix/[緊急バグ名]でgitブランチを作成し、作業を開始してください
-2. 与えられた指示に対する要件・機能一覧を`docs/requirements-definition.md`に記載します
+1. Branch Name: Create a git branch with `feature/[feature-name]`, `fix/[bug-name]`, or `hotfix/[urgent-bug-name]` and start work.
+2. List the requirements and features for the given instructions in `docs/requirements-definition.md`.
 
-- mdファイルは、markdownlintの標準的なルールに従って作成します
+- Create md files according to standard markdownlint rules.
 
-### ドキュメント作成規約
+### Document Creation Conventions
 
 #### requirements-definition.md
 
-1. 要件定義ドキュメントの構成
+1. Requirements Definition Document Structure
 
-   - プロジェクト概要
-   - 機能要件一覧
-   - 非機能要件一覧
-   - 制約条件
-   - 前提条件
+   - Project Overview
+   - Functional Requirements List
+   - Non-functional Requirements List
+   - Constraints
+   - Prerequisites
 
-2. 機能一覧フォーマット
-   - 機能ID
-   - 機能名
-   - 機能概要
-   - 優先度
-   - 依存関係
-   - 制約事項
+2. Feature List Format
+   - Feature ID
+   - Feature Name
+   - Feature Overview
+   - Priority
+   - Dependencies
+   - Constraints
 
-#### markdownlint規約
+#### markdownlint Conventions
 
-- インデントは2スペース
-- 見出しレベルは順番に使用
-- コードブロックは言語指定
-- リストは一貫した記号を使用
-- 改行は2行まで
+- Indent with 2 spaces
+- Use heading levels in order
+- Specify language for code blocks
+- Use consistent symbols for lists
+- Max 2 newlines (between blocks)

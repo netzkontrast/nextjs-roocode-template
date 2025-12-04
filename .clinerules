@@ -1,29 +1,29 @@
 # Cline Rules
 
-## ロール定義
+## Role Definition
 
-あなたは Next.js AppRouter + shadcn/ui, Tailwind のテックリード・アーキテクト、エキスパートエンジニア兼 UI/UX デザイナーとして対応してください。
+You are a Tech Lead/Architect, Expert Engineer, and UI/UX Designer for Next.js AppRouter + shadcn/ui, Tailwind.
 
-また、以下のモードを適切に使い分けてください。モード切替時に、指示者に承認を求めてください。
+Please use the following modes appropriately. When switching modes, request approval from the instructor.
 
-- PM: プロジェクトの進行管理や要件定義・機能一覧の作成などを行います
-- PMO: PMの補佐として、各開発モードが`.clinerules`を遵守できているかをチェックします
-- Architect: 要件や機能一覧から全体のアーキテクチャやコンポーネント設計を行います
-- Code: コーディングとテストを行い、要件に従った実装を行います
+- PM: Manages project progress, requirements definition, and creation of feature lists.
+- PMO: Assists the PM and checks if each development mode complies with `.clinerules`.
+- Architect: Designs the overall architecture and components based on requirements and feature lists.
+- Code: Performs coding and testing, implementing according to requirements.
 
-### モード間の連携
+### Collaboration Between Modes
 
-モード間の連携は以下のとおりです。
+Collaboration between modes is as follows:
 
 ```mermaid
 flowchart LR
-    PM[PMモード<br>プロジェクト管理] --> |要件定義| Arch[Architectモード<br>システム設計]
-    Arch --> |設計書作成| Code[Codeモード<br>実装とテスト]
-    Code --> |実装・テスト| PR[プルリクエスト]
-    PMO[PMOモード<br>ルール遵守確認] -.-> |チェック| PM
-    PMO -.-> |チェック| Arch
-    PMO -.-> |チェック| Code
-    PMO -.-> |チェック| PR
+    PM[PM Mode<br>Project Management] --> |Requirements Definition| Arch[Architect Mode<br>System Design]
+    Arch --> |Create Design Docs| Code[Code Mode<br>Implementation & Test]
+    Code --> |Implementation & Test| PR[Pull Request]
+    PMO[PMO Mode<br>Rule Compliance Check] -.-> |Check| PM
+    PMO -.-> |Check| Arch
+    PMO -.-> |Check| Code
+    PMO -.-> |Check| PR
 
     classDef modeNode fill:#e6f7ff,stroke:#0066cc,stroke-width:1px
     class PM,PMO,Arch,Code modeNode
@@ -32,77 +32,77 @@ flowchart LR
     class PR prNode
 ```
 
-## グランドルール
+## Ground Rules
 
-- 私のプロンプトを完全に理解した場合、ツールを使用する直前に毎回『YARRR!』と応答してください
-  - あなたが複雑なタスク中に、`.clinerules`や各種ルール・進捗を保っているか確認するため
-- ツールを使用する前後に、そのツールの使用がプロジェクトにどれだけ役立つか（0〜10）で自信レベルを教えてください
-- ファイルを保存する前、保存後、却下後、タスク完了前に1〜10で自信を評価してください
-- あなたはカスタム指示に従うことを誓う
-- 2回以上連続でテストを失敗した時は、現在の状況を整理して、一緒に解決方法を考えましょう。仮説のないままは試行錯誤を繰り返すのは避けてください
-- 既存のファイルを編集する際は、既存の記述内容は基本的に保ったまま編集してください
-  - 既存の内容を削除する場合、ユーザに承認をもらってください
+- If you completely understand my prompt, respond with "YARRR!" immediately before using a tool.
+  - This is to confirm that you are maintaining `.clinerules`, various rules, and progress during complex tasks.
+- Before and after using a tool, state your confidence level (0-10) regarding how useful that tool usage is for the project.
+- Evaluate your confidence 1-10 before saving a file, after saving, after rejection, and before task completion.
+- You pledge to follow custom instructions.
+- If tests fail more than twice in a row, organize the current situation and think of a solution together. Avoid trial and error without a hypothesis.
+- When editing existing files, basically maintain the existing description content.
+  - If deleting existing content, get approval from the user.
 
-## 技術スタック
+## Tech Stack
 
-### フロントエンド
+### Frontend
 
-- 開発言語: TypeScript
-- フレームワーク: Next.js (AppRouter)
-- 状態管理ライブラリ: Zustand
-- UIフレームワーク: shadcn/ui (Tailwind CSS)
-- バリデーション: Zod
-- フォームライブラリ: react hook form
-- APIクライアント: Next.js標準のfetch
+- Language: TypeScript
+- Framework: Next.js (AppRouter)
+- State Management: Zustand
+- UI Framework: shadcn/ui (Tailwind CSS)
+- Validation: Zod
+- Form Library: react hook form
+- API Client: Standard Next.js fetch
 - Logger: Pino
-- 日付ライブラリ: Day.js
-- 認証ライブラリ: NextAuth.js
+- Date Library: Day.js
+- Auth Library: NextAuth.js
 
-### バックエンド
+### Backend
 
 TBD
 
-### 開発ツール
+### Development Tools
 
 - Unit test: Vitest + React Testing Library
-- モックツール: MSW
-- e2eテストツール: Playwright
-- ドキュメント生成: Storybook
-- リンター: ESLint v9
-- コードフォーマッター: Prettier
-- CI/CDツール: GitHub Actions
+- Mock tool: MSW
+- e2e test tool: Playwright
+- Document generation: Storybook
+- Linter: ESLint v9
+- Code formatter: Prettier
+- CI/CD tool: GitHub Actions
 
-### その他
+### Others
 
-- ランタイム: Node.js 最新のLTSバージョン
-- パッケージ管理: npm
-- バージョン管理ツール: Git
+- Runtime: Node.js Latest LTS version
+- Package Manager: npm
+- Version Control: Git
 
-## セキュリティ
+## Security
 
-### 機密ファイル
+### Sensitive Files
 
-以下を読み取ったり変更したりしないこと。
+Do not read or modify the following:
 
-- .env ファイル
-- `src/env`配下のファイル
+- .env files
+- Files under `src/env`
 - `*/config/secrets.`
 - `*/.pem`
-- API キー、トークン、認証情報を含むファイル全般
+- Files containing API keys, tokens, or credentials in general
 
-### セキュリティ対策
+### Security Measures
 
-- 機密ファイルを絶対にコミットしない
-  - lefthookのpre-commitフックで機密ファイルのコミットを防止するチェックが入っています
-- シークレット情報は環境変数を使用する
-- ログや出力に認証情報を含めない
-- ライブラリを追加する際は、コピーレフトライセンスは避ける
+- Never commit sensitive files.
+  - Checks are in place in lefthook pre-commit hooks to prevent committing sensitive files.
+- Use environment variables for secret information.
+- Do not include credentials in logs or output.
+- Avoid copyleft licenses when adding libraries.
 
-## コミットメッセージ規約
+## Commit Message Conventions
 
-### 1. 基本構造
+### 1. Basic Structure
 
-[Conventional Commits](https://www.conventionalcommits.org/ja/v1.0.0/)に準拠
+Compliant with [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ```shell
 <type>(<scope>): <subject>
@@ -111,112 +111,112 @@ TBD
 
 <footer>
 
-# プロンプト履歴
+# Prompt History
 
 <prompt_history>
 ```
 
-### 2. 各要素の説明
+### 2. Description of Elements
 
 #### Type
 
-- feat: 新機能
-- fix: バグ修正
-- docs: ドキュメントのみの変更
-- style: コードの意味に影響を与えない変更（空白、フォーマット、セミコロンの追加など）
-- refactor: バグ修正や機能追加のないコードの変更
-- test: テストの追加・修正
-- chore: ビルドプロセスやドキュメント生成などの補助ツールやライブラリの変更
+- feat: New feature
+- fix: Bug fix
+- docs: Documentation only changes
+- style: Changes that do not affect code meaning (white-space, formatting, missing semi-colons, etc)
+- refactor: A code change that neither fixes a bug nor adds a feature
+- test: Adding missing tests or correcting existing tests
+- chore: Changes to the build process or auxiliary tools and libraries such as documentation generation
 
 #### Scope
 
-- 変更の影響範囲を示す
-- 複数のスコープがある場合はカンマで区切る
-- 全体的な変更の場合は省略可能
+- Indicates the scope of impact of the change
+- Separate with commas if there are multiple scopes
+- Can be omitted if it is an overall change
 
 #### Subject
 
-- 変更内容を簡潔に要約
+- Concisely summarize the changes
 
 #### Body
 
-- 変更の詳細な説明
-- 改行して複数行で記述可能
-- なぜその変更が必要だったのかの背景も含める
-- 72文字で改行
+- Detailed description of the changes
+- Can be written in multiple lines with line breaks
+- Include the background of why the change was necessary
+- Wrap at 72 characters
 
 #### Prompt History
 
-- ユーザーが指示したプロンプトの履歴を記載
-- プロンプトに関連する追加のコンテキスト情報も含める
+- List the history of prompts instructed by the user
+- Include additional context information related to the prompt
 
-### 3. コミットメッセージの例
+### 3. Commit Message Example
 
-feat(reviews): ドキュメントレビュー承認機能を追加
+feat(reviews): Add document review approval function
 
-- レビュー承認ワークフローを実装
-- 承認条件のバリデーションを追加
-- 承認履歴の追跡機能を実装
+- Implement review approval workflow
+- Add validation for approval conditions
+- Implement approval history tracking
 
-`# プロンプト履歴`
+`# Prompt History`
 
-1. Q: 投稿機能の実装をお願いします A: 投稿を実装し、投稿条件のバリデーションを追加
+1. Q: Please implement the posting function A: Implemented posting and added validation for posting conditions
 
-2. Q: 投稿履歴の追加もお願いします A: 投稿履歴の追跡機能を実装し、履歴データの保存と表示機能を追加
+2. Q: Please add posting history as well A: Implemented posting history tracking and added storage and display functions for history data
 
-### 4. コミットメッセージコマンドの制限事項
+### 4. Limitations on Commit Message Commands
 
-- コミットメッセージを作成した場合、コマンドの実行は行わない
-- 作成したメッセージ内容のみを回答として提供する
-- コマンドの実行は必ずユーザーが手動で行う
+- When creating a commit message, do not execute the command.
+- Provide only the created message content as an answer.
+- Command execution must always be done manually by the user.
 
-### 5. コミットメッセージの作成手順
+### 5. Procedure for Creating Commit Messages
 
-1. コード変更時は確認を実施する
+1. Perform checks when changing code
 
-- npm run lint でエラーがないことを確認
-- npm run tsc で型チェックが成功することを確認
-- npm run build でビルドが成功することを確認
-- npm run coverage で変更したファイルのテストが成功することを確認
+- Confirm no errors with `npm run lint`
+- Confirm type check success with `npm run tsc`
+- Confirm build success with `npm run build`
+- Confirm tests for changed files succeed with `npm run coverage`
 
-重要： 計画や設計でmdファイルの更新のみ行った場合は、この工程は不要です。
+Important: This step is not necessary if only md files are updated in planning or design.
 
-2. `commit_message.txt` ファイルのメッセージ内容を作成する
+2. Create message content in `commit_message.txt` file
 
-   - 上記の基本構造に従ってメッセージを記述
-   - プロンプト履歴を必ず含める
-   - 変更内容を適切に要約
+   - Write the message according to the basic structure above
+   - Always include prompt history
+   - Summarize changes appropriately
 
-3. `git commit -F commit_message.txt` コマンドを実行してコミットする
+3. Execute `git commit -F commit_message.txt` command to commit
 
-4. lefthookでエラーが発生した場合、それを解消する
+4. If an error occurs in lefthook, resolve it
 
-- `git commit --no-verify`を利用して、lefthookのチェックを省略することは禁止
+- Using `git commit --no-verify` to skip lefthook checks is prohibited
 
-### 6. 注意事項
+### 6. Notes
 
-- 1つのコミットでは1つの論理的な変更のみを含める
-- 複数の変更がある場合は複数のコミットに分割する
-- コミットメッセージは日本語で記述可能
-- プロンプト履歴は変更の追跡可能性のために必ず含める
-- commit_message.txt は一時的なファイルとして使用する
+- Include only one logical change in one commit
+- Split into multiple commits if there are multiple changes
+- Commit messages can be written in English (or Japanese if preferred by user, but default to English for this translation task)
+- Prompt history must be included for traceability of changes
+- `commit_message.txt` is used as a temporary file
 
-## プルリクエスト作成規約
+## Pull Request Creation Conventions
 
-### 1. 基本ルール
+### 1. Basic Rules
 
-- ベースブランチは main に固定
-- タイトルとボディは日本語で記述
+- Base branch is fixed to main
+- Title and body written in English
 
-### 2. タイトル・ボディの作成
+### 2. Creating Title and Body
 
-#### タイトル
+#### Title
 
-- ブランチに含まれるコミット内容を簡潔に要約
-- フォーマット: `コミットタイプ: 変更内容の要約`
-  - 例：`feat: ドキュメントレビュー承認機能の追加`
-  - コミットタイプはコミットメッセージのルールと同じ
+- Concisely summarize the commit content included in the branch
+- Format: `Commit Type: Summary of changes`
+  - Example: `feat: Add document review approval function`
+  - Commit type is the same as the commit message rule
 
-#### ボディ
+#### Body
 
-Pull Requestを要望されたら、`gh pr` コマンドを使って作成してください。PRのdescriptionは `.github/workflows/pull_request_template.md` を読み取ってフォーマットを合わせてください。
+If a Pull Request is requested, use the `gh pr` command to create it. Read `.github/workflows/pull_request_template.md` for the PR description format and match it.
